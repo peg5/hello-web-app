@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from collection.models import Thing
 from collection.forms import ThingForm
 
@@ -20,9 +20,9 @@ def edit_thing(request, slug):
 	form_class = ThingForm
 	if request.method == 'POST':
 		form = form_class(data = request.POST, instance=thing)
-			if form.is_valid():
-				form.save()
-				return redirect('thing_detail', slug=thing.slug)
+		if form.is_valid():
+			form.save()
+			return redirect('thing_detail', slug=thing.slug)
 	else:
 		form = form_class(instance=thing)
 
